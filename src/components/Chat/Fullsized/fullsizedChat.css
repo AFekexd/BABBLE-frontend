@@ -1,0 +1,137 @@
+.chat-container {
+  display: flex;
+
+}
+
+
+.chat-right {
+  width: 80%;
+  height: 93dvh;
+  overflow: hidden;
+  background-color: #0b3750a6;
+}
+
+.chat-footer {
+  width: 100%;
+  height: 7vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0b3750a6;
+  color: white;
+  box-shadow: 0 0 10px 0 #000000;
+  position: fixed;
+    bottom: 0;
+}
+.chat-input {
+  width: 80%;
+  padding: 10px;
+  display: flex;
+    justify-content: space-between;
+  background-color: #0b3750a6;
+  color: white;
+  box-shadow: 0 0 10px 0 #000000;
+}
+.chat-messages{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 2%;
+    overflow-y: auto;
+    height: 78dvh
+
+
+}
+
+.msg{
+    max-width: 50%;
+    padding: 10px;
+    background-color: #104d8aa6;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 #000000;
+    margin-bottom: 10px;
+}
+.message-received{
+    align-self: flex-start;
+}
+
+.message-sent{
+    align-self: flex-end;
+}
+
+.chat-header{
+    width: 100%;
+    height: 7vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #061d2ba6;
+    color: white;
+    box-shadow: 0 0 10px 0 #000000;
+    padding: 2rem;
+
+}
+.chat-header-left{
+    width: 100%;
+    height: 7vh;
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    align-items: center;
+
+}
+
+.chat-left {
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+
+   }
+   .chat-tabs{
+       padding-top: 20px;
+
+   }
+
+
+.chat-group-list{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 2%;
+}
+
+.group-list-item{
+    width: 100%;
+    padding: 10px;
+    background-color: #104d8aa6;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 #000000;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    align-items: center;
+}
+
+.group-info h3{
+    font-size: 1.2rem;
+}
+.group-info p{
+    font-size: 1rem;
+    color: rgb(207, 207, 207);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 200px;
+
+}

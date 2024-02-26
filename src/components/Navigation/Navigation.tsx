@@ -28,12 +28,12 @@ const Navigation = () => {
             href: "/messages",
         },
         {
-            title: "Shop",
-            href: "/shop",
-        },
-        {
             title: "Profilom",
             href: "/profile",
+        },
+        {
+            title: "Beszélgetés",
+            href: "/chat",
         },
     ];
 

@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
+import Messages from "./Pages/Messages";
 import Notfound from "./Pages/Notfound";
 import Register from "./Pages/Register";
-import Shop from "./Pages/Shop";
 import Navigation from "./components/Navigation/Navigation";
 
 const Pages = () => {
@@ -21,15 +21,12 @@ const Pages = () => {
                     }
                 ></Route>
                 <Route
-                    path="/shop"
+                    index
+                    path="/chat"
                     element={
                         <>
-                            <div>
-                                <Navigation />
-                            </div>
-                            <div>
-                                <Shop />
-                            </div>
+                            <Navigation />
+                            <Messages />
                         </>
                     }
                 ></Route>
