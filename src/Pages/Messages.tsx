@@ -6,17 +6,24 @@ import {
     Card,
     CardBody,
     Input,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
     Popover,
     PopoverContent,
     PopoverTrigger,
     Tab,
     Tabs,
     Tooltip,
+    useDisclosure,
 } from "@nextui-org/react";
 import {
     MdAdd,
     MdCall,
     MdGroup,
+    MdGroupAdd,
     MdPerson,
     MdSend,
     MdVideoCall,
@@ -25,6 +32,8 @@ import {
 import ChatItem from "../components/Chat/ChatItem";
 import "../components/Chat/Fullsized/fullsizedChat.css";
 const Messages = () => {
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
     const dummyMessages = [
         {
             id: 1,
@@ -85,6 +94,15 @@ const Messages = () => {
             name: "User1",
             timestamp: "2021-09-01T12:00:00",
         },
+        {
+            id: 8,
+            content:
+                "https://open.spotify.com/track/6BePGk3eCan4FqaW2X8Qy3?si=f5d907eb63a6449b",
+            recieved: false,
+            type: "link",
+            name: "User2",
+            timestamp: "2021-09-01T12:00:00",
+        },
     ];
 
     return (
@@ -96,7 +114,7 @@ const Messages = () => {
                             <Tooltip content="Barátok" placement="bottom">
                                 <div className="chat-tab">
                                     <Badge
-                                        color="danger"
+                                        color="warning"
                                         content="10"
                                         placement="bottom-right"
                                     >
@@ -117,7 +135,7 @@ const Messages = () => {
                             <Tooltip content="Csoportok" placement="bottom">
                                 <div className="chat-tab">
                                     <Badge
-                                        color="danger"
+                                        color="warning"
                                         content="10"
                                         placement="bottom-right"
                                     >
@@ -127,11 +145,11 @@ const Messages = () => {
                             </Tooltip>
                         }
                     >
-                        <Card>
-                            <CardBody>
+                        <div className="chat-group-card ">
+                            <div className="chat-group-card-body">
                                 <div className="chat-group-list">
                                     <div className="group-list-item">
-                                        <Badge color="success" content="10">
+                                        <Badge color="warning" content="10">
                                             <Avatar
                                                 size="md"
                                                 isBordered
@@ -146,29 +164,19 @@ const Messages = () => {
                                             </p>
                                         </div>
                                     </div>
-                                    <div className="group-list-item">
-                                        <Badge color="success" content="10">
-                                            <Avatar
-                                                size="md"
-                                                isBordered
-                                                src="https://i.imgur.com/7k12EPD.png"
-                                            />
-                                        </Badge>
-                                        <h3>TESZT ELEK</h3>
-                                    </div>
-                                    <div className="group-list-item">
-                                        <Badge color="success" content="10">
-                                            <Avatar
-                                                size="md"
-                                                isBordered
-                                                src="https://i.imgur.com/7k12EPD.png"
-                                            />
-                                        </Badge>
-                                        <h3>TESZT ELEK</h3>
-                                    </div>
                                 </div>
-                            </CardBody>
-                        </Card>
+                            </div>
+                            <div className="chat-group-card-footer">
+                                <Button
+                                    color="warning"
+                                    size="lg"
+                                    startContent={<MdGroupAdd />}
+                                    onPress={onOpen}
+                                >
+                                    Új csoport
+                                </Button>
+                            </div>
+                        </div>
                     </Tab>
                 </Tabs>
             </div>
@@ -262,6 +270,40 @@ const Messages = () => {
                     </div>
                 </div>
             </div>
+            <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+                <ModalContent>
+                    {(onClose) => (
+                        <>
+                            <ModalHeader className="flex flex-col gap-1">
+                                <h2>Új csoport</h2>
+                                <p>Adja meg a csoport nevét és tagjait</p>
+                            </ModalHeader>
+                            <ModalBody>
+                                <Input
+                                    label="Csoport neve"
+                                    placeholder="Csoport neve"
+                                />
+                                <Input
+                                    label="Tagok"
+                                    placeholder="Felhasználók"
+                                />
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button
+                                    color="danger"
+                                    variant="light"
+                                    onPress={onClose}
+                                >
+                                    Mégse
+                                </Button>
+                                <Button color="primary" onPress={onClose}>
+                                    Létrehozás
+                                </Button>
+                            </ModalFooter>
+                        </>
+                    )}
+                </ModalContent>
+            </Modal>
         </div>
     );
 };

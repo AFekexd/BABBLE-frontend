@@ -13,6 +13,7 @@ import {
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
+import LangSelector from "../LangSelector";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 const Navigation = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -101,6 +102,9 @@ const Navigation = () => {
             <NavbarContent justify="end">
                 <NavbarItem className="lg:flex">
                     <ThemeSwitcher />
+                </NavbarItem>
+                <NavbarItem className="lg:flex">
+                    <LangSelector />
                 </NavbarItem>
                 {!isLogged && (
                     <>

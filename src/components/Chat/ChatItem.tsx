@@ -1,7 +1,49 @@
+import { Link } from "@nextui-org/react";
+
 const ChatItem = ({ key, chat }) => {
     const sent = (timestamp) => {
         const date = new Date(timestamp);
         return `${date.getHours()}:${date.getMinutes()}`;
+    };
+
+    const checkEmbed = (url) => {
+        if (url.includes("spotify")) {
+            const embed = url.replace("open.spotify.com", "embed.spotify.com");
+            return (
+                <>
+                    <Link href={url} color="primary">
+                        {" "}
+                        {url}{" "}
+                    </Link>
+                    <iframe
+                        src={embed}
+                        width="100%"
+                        height="152"
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                        loading="lazy"
+                        className="spotify-embed"
+                    ></iframe>
+                </>
+            );
+        } else {
+            const embed = url.replace("watch?v=", "embed/");
+            return (
+                <>
+                    <Link href={url} color="primary">
+                        {" "}
+                        {url}{" "}
+                    </Link>
+                    <iframe
+                        width="560"
+                        height="315"
+                        src={embed}
+                        title="YouTube video player"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                    ></iframe>
+                </>
+            );
+        }
     };
     const contentRender = (chat) => {
         switch (chat.type) {
@@ -22,6 +64,15 @@ const ChatItem = ({ key, chat }) => {
                         controls
                         className="w-36 h-36 object-cover"
                     ></video>
+                );
+            case "link":
+                return chat.content.includes("youtube") ||
+                    chat.content.includes("spotify") ? (
+                    checkEmbed(chat.content)
+                ) : (
+                    <a href={chat.content} className="text-sm text-blue-400">
+                        {chat.content}
+                    </a>
                 );
             default:
                 return <p className="text-sm text-gray-200">{chat.content}</p>;
