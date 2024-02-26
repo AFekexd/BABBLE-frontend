@@ -33,7 +33,11 @@ const LangSelector = () => {
                     <Button
                         key={lang.code}
                         onClick={() => setSelectedLang(lang)}
-                        variant="light"
+                        variant={
+                            lang.code === selectedLang.code
+                                ? "bordered"
+                                : "light"
+                        }
                     >
                         {lang.name}
                     </Button>

@@ -1,12 +1,12 @@
 import { Link } from "@nextui-org/react";
 
-const ChatItem = ({ key, chat }) => {
-    const sent = (timestamp) => {
+const ChatItem = ({ key, chat }: { key: number; chat: any }) => {
+    const sent = (timestamp: Date) => {
         const date = new Date(timestamp);
         return `${date.getHours()}:${date.getMinutes()}`;
     };
 
-    const checkEmbed = (url) => {
+    const checkEmbed = (url: string) => {
         if (url.includes("spotify")) {
             const embed = url.replace("open.spotify.com", "embed.spotify.com");
             return (
@@ -45,7 +45,7 @@ const ChatItem = ({ key, chat }) => {
             );
         }
     };
-    const contentRender = (chat) => {
+    const contentRender = (chat: any) => {
         switch (chat.type) {
             case "text":
                 return <p className="text-sm text-gray-200">{chat.content}</p>;
@@ -79,7 +79,7 @@ const ChatItem = ({ key, chat }) => {
         }
     };
 
-    const ChatRender = (chat) => {
+    const ChatRender = (chat: any) => {
         return (
             <div
                 key={key}

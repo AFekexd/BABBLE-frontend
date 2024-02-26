@@ -18,7 +18,7 @@ import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 const Navigation = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { theme } = useTheme();
-    const [isLogged, setIsLogged] = useState(false);
+    const [isLogged] = useState(false);
     const menuItems = [
         {
             title: "Fórum",
