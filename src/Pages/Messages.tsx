@@ -30,6 +30,7 @@ import {
     MdWarning,
 } from "react-icons/md";
 import ChatItem from "../components/Chat/ChatItem";
+import FriendListSm from "../components/Chat/Fullsized/FriendListSm";
 import "../components/Chat/Fullsized/fullsizedChat.css";
 const Messages = () => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -107,8 +108,8 @@ const Messages = () => {
 
     return (
         <div className="chat-container">
-            <div className="chat-left">
-                <Tabs className="chat-tabs">
+            <div className="chat-left hidden md:block">
+                <Tabs className="chat-tabs ">
                     <Tab
                         title={
                             <Tooltip content="Barátok" placement="bottom">
@@ -126,7 +127,7 @@ const Messages = () => {
                     >
                         <Card>
                             <CardBody>
-                                <div className="chat-friendlist">asd</div>
+                                <div className="chat-friendlist">asdasd</div>
                             </CardBody>
                         </Card>
                     </Tab>
@@ -179,6 +180,9 @@ const Messages = () => {
                         </div>
                     </Tab>
                 </Tabs>
+            </div>
+            <div className="chat-left md:hidden">
+                <FriendListSm />
             </div>
             <div className="chat-right">
                 <div className="chat">
@@ -245,29 +249,28 @@ const Messages = () => {
                     </div>
                 </div>
                 <div className="chat-footer">
-                    <div className="chat-input">
-                        <Input
-                            startContent={
-                                <button
-                                    type="submit"
-                                    className="btn btn-primary"
-                                    onClick={() => console.log("asd")}
-                                >
-                                    <MdAdd />
-                                </button>
-                            }
-                            endContent={
-                                <button
-                                    type="submit"
-                                    className="btn btn-primary"
-                                    onClick={() => console.log("asd")}
-                                >
-                                    <MdSend />
-                                </button>
-                            }
-                            type="text"
-                        />
-                    </div>
+                    <Input
+                        className="chat-input"
+                        startContent={
+                            <button
+                                type="submit"
+                                className="btn btn-primary"
+                                onClick={() => console.log("asd")}
+                            >
+                                <MdAdd />
+                            </button>
+                        }
+                        endContent={
+                            <button
+                                type="submit"
+                                className="btn btn-primary"
+                                onClick={() => console.log("asd")}
+                            >
+                                <MdSend />
+                            </button>
+                        }
+                        type="text"
+                    />
                 </div>
             </div>
             <Modal isOpen={isOpen} onOpenChange={onOpenChange}>

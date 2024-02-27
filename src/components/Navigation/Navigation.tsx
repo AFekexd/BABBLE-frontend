@@ -9,9 +9,13 @@ import {
     NavbarMenu,
     NavbarMenuItem,
     NavbarMenuToggle,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from "@nextui-org/react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { MdAppRegistration, MdLogin, MdLogout } from "react-icons/md";
 import { Link as RouterLink } from "react-router-dom";
 import LangSelector from "../LangSelector";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
@@ -26,14 +30,6 @@ const Navigation = () => {
         },
         {
             title: "Üzenetek",
-            href: "/messages",
-        },
-        {
-            title: "Profilom",
-            href: "/profile",
-        },
-        {
-            title: "Beszélgetés",
             href: "/chat",
         },
     ];
@@ -114,8 +110,12 @@ const Navigation = () => {
                                 as={Link}
                                 href="login"
                                 variant={theme === "dark" ? "flat" : "solid"}
+                                startContent={<MdLogin />}
                             >
-                                Bejelentkezés
+                                <span className="hidden lg:block">
+                                    {" "}
+                                    Bejelentkezés
+                                </span>
                             </Button>
                         </NavbarItem>
                         <NavbarItem>
@@ -124,23 +124,48 @@ const Navigation = () => {
                                 color="warning"
                                 href="register"
                                 variant={theme === "dark" ? "flat" : "solid"}
+                                startContent={<MdAppRegistration />}
                             >
-                                Regisztáció
+                                <span className="hidden lg:block">
+                                    {" "}
+                                    Regisztáció
+                                </span>
                             </Button>
                         </NavbarItem>
                     </>
                 )}
-                {isLogged && (
+                {!isLogged && (
                     <NavbarItem>
-                        <Avatar
-                            isBordered
-                            as="button"
-                            className="transition-transform"
-                            color="danger"
-                            name="Jason Hughes"
-                            size="sm"
-                            src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-                        />
+                        <Popover placement="bottom" offset={20} showArrow>
+                            <PopoverTrigger>
+                                <Avatar
+                                    isBordered
+                                    as="button"
+                                    className="transition-transform"
+                                    color="danger"
+                                    name="Jason Hughes"
+                                    size="sm"
+                                    src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                                />
+                            </PopoverTrigger>
+                            <PopoverContent>
+                                <Button variant="light">
+                                    {" "}
+                                    Profil megtekintése
+                                </Button>
+
+                                <Button variant="light" color="secondary">
+                                    Beállítások
+                                </Button>
+                                <Button
+                                    variant="light"
+                                    color="danger"
+                                    startContent={<MdLogout />}
+                                >
+                                    Kijelentkezés
+                                </Button>
+                            </PopoverContent>
+                        </Popover>
                     </NavbarItem>
                 )}
             </NavbarContent>
@@ -149,7 +174,7 @@ const Navigation = () => {
                 aria-label="Main navigation"
                 className={
                     theme === "dark"
-                        ? "bg-blue-900 text-white"
+                        ? "bg-mainbg text-white"
                         : "bg-gray-200 text-black"
                 }
             >
@@ -158,13 +183,7 @@ const Navigation = () => {
                         <Link
                             as={RouterLink}
                             className="w-full"
-                            color={
-                                index === 2
-                                    ? "warning"
-                                    : index === menuItems.length - 1
-                                    ? "danger"
-                                    : "foreground"
-                            }
+                            color={"foreground"}
                             to="#"
                             size="lg"
                         >
@@ -172,6 +191,21 @@ const Navigation = () => {
                         </Link>
                     </NavbarMenuItem>
                 ))}
+                <NavbarMenuItem>
+                    <Link
+                        as={RouterLink}
+                        className="w-full"
+                        color={"foreground"}
+                        to="#"
+                        size="lg"
+                    >
+                        Beállítások
+                    </Link>
+                </NavbarMenuItem>
+                <NavbarMenuItem className="lg:flex">
+                    <ThemeSwitcher />
+                    <LangSelector />
+                </NavbarMenuItem>
             </NavbarMenu>
         </Navbar>
     );

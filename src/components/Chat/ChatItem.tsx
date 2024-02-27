@@ -34,8 +34,7 @@ const ChatItem = ({ key, chat }: { key: number; chat: any }) => {
                         {url}{" "}
                     </Link>
                     <iframe
-                        width="560"
-                        height="315"
+                        className="object-cover"
                         src={embed}
                         title="YouTube video player"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
