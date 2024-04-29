@@ -1,0 +1,46 @@
+
+#forumContainer {
+  height: 80dvh;
+}
+.RecentList {
+
+padding: 10px;
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+#forumRecent{
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.itemLNDL{
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#forumList{
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+#ForumCommentSection::-webkit-scrollbar {
+  width: 5px;
+
+}
+
+#ForumCommentSection::-webkit-scrollbar-thumb {
+  background-color: #69696933;
+  border-radius: 10px;
+}
+
+#ForumCommentSection::-webkit-scrollbar-track {
+  background-color: #f1f1f100;
+  border-radius: 10px;
+}
+#ForumCommentSection::-webkit-scrollbar-thumb:hover {
+  background-color: #696969;
+}

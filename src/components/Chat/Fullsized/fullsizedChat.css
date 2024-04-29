@@ -153,7 +153,6 @@
 
 .chat-group-card-footer{
     height: 8vh;
-
     background-color: #083047a6;
     color: white;
     box-shadow: 0 0 10px 0 #030303;
@@ -169,5 +168,17 @@ padding: 1px;
 
 .chat-group-card-footer svg{
     font-size: 1.3rem;
+
+}
+
+.mediaContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+.mediaContainer iframe{
+    max-height: 30dvh;
+    height:30dvh;
 
 }

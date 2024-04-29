@@ -1,4 +1,4 @@
-import { Button, Checkbox, Input, Link } from "@nextui-org/react";
+import { Button, Checkbox, Image, Input, Link } from "@nextui-org/react";
 
 import { useState } from "react";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
@@ -10,7 +10,7 @@ const Register = () => {
     return (
         <div className="flex flex-col items-center justify-center h-screen ">
             <div className="loginHeader flex flex-row items-center justify-center gap-2 font-bold text-2xl">
-                <p>CHATTER</p>
+            <Image src="/logobabble.png" alt="Chatter" width={200} height={50} />
                 <ThemeSwitcher />
             </div>
             <div className="flex flex-col gap-2 w-72 ">

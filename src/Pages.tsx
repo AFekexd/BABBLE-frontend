@@ -5,6 +5,8 @@ import Messages from "./Pages/Messages";
 import Notfound from "./Pages/Notfound";
 import Register from "./Pages/Register";
 import Navigation from "./components/Navigation/Navigation";
+import Forum from "./Pages/Forum";
+import ForumContent from "./components/Forum/ForumContent";
 
 const Pages = () => {
     return (
@@ -30,6 +32,16 @@ const Pages = () => {
                         </>
                     }
                 ></Route>
+                <Route
+                    index
+                    path="/forum"
+                    element={
+                        <>
+                            <Navigation />
+                            <Forum />
+                        </>
+                    }
+                ></Route>
 
                 <Route
                     path="*"
@@ -40,6 +52,12 @@ const Pages = () => {
                         </div>
                     }
                 ></Route>
+                <Route path="/forum/:forumId" element={
+                   <>
+                   <Navigation />
+                   <ForumContent />
+               </>
+               }></Route>
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/register" element={<Register />}></Route>
             </Routes>

@@ -79,16 +79,16 @@ const Messages = () => {
         //url
         {
             id: 6,
-            content: "https://www.youtube.com/watch?v=3zrSoHgAAWo",
+            content: "https://www.youtube.com/watch?v=IOwdBmgzkzY&ab_channel=SomeOrdinaryGamers",
             recieved: false,
-            type: "video",
+            type: "link",
             name: "User2",
             timestamp: "2021-09-01T12:00:00",
         },
         //link
         {
             id: 7,
-            content: "https://www.youtube.com/watch?v=3zrSoHgAAWo",
+            content: "https://www.youtube.com/watch?v=IOwdBmgzkzY",
             recieved: true,
             type: "link",
             name: "User1",

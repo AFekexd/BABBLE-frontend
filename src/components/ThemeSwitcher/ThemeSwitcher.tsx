@@ -12,7 +12,8 @@ const ThemeSwitcher = () => {
                 variant="light"
                 isIconOnly
                 startContent={theme === "light" ? <BsMoon /> : <BsSun />}
-                className="font-bold text-xl color-inherit"
+                className="font-bold text-xl"
+                style={{color: "white"}}
             ></Button>
         </>
     );

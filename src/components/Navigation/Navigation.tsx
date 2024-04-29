@@ -1,6 +1,7 @@
 import {
     Avatar,
     Button,
+    Image,
     Link,
     Navbar,
     NavbarBrand,
@@ -28,31 +29,19 @@ const Navigation = () => {
             title: "Üzenetek",
             href: "/messages",
         },
-        {
-            title: "Profilom",
-            href: "/profile",
-        },
+   
         {
             title: "Beszélgetés",
             href: "/chat",
         },
     ];
-
-    const [activeItem, setActiveItem] = useState(menuItems[0].title);
-
-    useEffect(() => {
-        console.log(activeItem);
-    }, [activeItem]);
+    const currentPath = window.location.pathname.split("/")[1];
     return (
         <Navbar
             isBordered
             isMenuOpen={isMenuOpen}
             onMenuOpenChange={setIsMenuOpen}
-            className={
-                (theme === "dark"
-                    ? "bg-mainbg text-white"
-                    : "bg-gray-300 text-black") + ""
-            }
+          
         >
             <NavbarContent className="sm:hidden" justify="start">
                 <NavbarMenuToggle
@@ -63,7 +52,7 @@ const Navigation = () => {
             <NavbarContent className="sm:hidden pr-3" justify="center">
                 <NavbarBrand>
                     <Link as={RouterLink} to="/" aria-current="page">
-                        <p className="font-bold text-inherit">CHATTER</p>
+                        <Image src="/logobabble.png" alt="Chatter" width={100} height={50} />
                     </Link>
                 </NavbarBrand>
             </NavbarContent>
@@ -75,7 +64,7 @@ const Navigation = () => {
                         to="/"
                         className="font-bold text-inherit"
                     >
-                        CHATTER
+                       <Image src="/logobabble.png" alt="Chatter"  width={125} height={50} />
                     </Link>
                 </NavbarBrand>
                 {menuItems.map((item, index) => (
@@ -83,15 +72,14 @@ const Navigation = () => {
                         <Link
                             as={RouterLink}
                             color={
-                                item.title === activeItem
+                                item.href === "/" + currentPath
                                     ? "warning"
-                                    : theme === "dark"
-                                    ? "foreground"
-                                    : "secondary"
+                                    : "primary"
                             }
+                            style={{ fontWeight: 500,}}
                             to={item.href}
                             size="lg"
-                            onClick={() => setActiveItem(item.title)}
+                      
                         >
                             {item.title}
                         </Link>
@@ -103,17 +91,20 @@ const Navigation = () => {
                 <NavbarItem className="lg:flex">
                     <ThemeSwitcher />
                 </NavbarItem>
+                 {/*
                 <NavbarItem className="lg:flex">
                     <LangSelector />
                 </NavbarItem>
+                */}
                 {!isLogged && (
                     <>
                         <NavbarItem className="lg:flex">
                             <Button
-                                color="success"
+                             
                                 as={Link}
                                 href="login"
                                 variant={theme === "dark" ? "flat" : "solid"}
+                                color="primary"
                             >
                                 Bejelentkezés
                             </Button>
