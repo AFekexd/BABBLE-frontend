@@ -8,8 +8,10 @@ export default {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
 
-  darkMode: "class",
+  darkMode: "class", // or 'media' or 'class'
   plugins: [
-    nextui(),
+    nextui(
+    
+    ),
   ],
 };

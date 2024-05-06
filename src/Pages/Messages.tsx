@@ -11,14 +11,19 @@ import {
 import "../components/Chat/Fullsized/fullsizedChat.css";
 import FChatLeftCard from "../components/Chat/Fullsized/FChatLeftCard";
 import FChatRightCard from "../components/Chat/Fullsized/FChatRightCard";
+import MobileChat from "../components/Chat/Mobile/MobileChat";
 const Messages = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
-    <div className="flex flex-row p-1 md:p-3 lg:p-10  h-[92dvh] gap-5">
-      <FChatLeftCard onOpen={onOpen} />
-      <FChatRightCard />
-
+    <>
+      <div className="hidden sm:flex flex-row p-1 md:p-3 lg:p-10  h-[92dvh] gap-5">
+        <FChatLeftCard onOpen={onOpen} />
+        <FChatRightCard />
+      </div>
+      <div className="flex sm:hidden h-[90dvh]">
+        <MobileChat />{" "}
+      </div>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
@@ -43,7 +48,7 @@ const Messages = () => {
           )}
         </ModalContent>
       </Modal>
-    </div>
+    </>
   );
 };
 

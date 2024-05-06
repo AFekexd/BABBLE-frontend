@@ -66,6 +66,7 @@ const Navigation = () => {
           <NavbarBrand>
             <Link as={RouterLink} to="/" aria-current="page">
               <Image
+                className={theme === "light" ? "invert" : ""}
                 src="/logobabble.png"
                 alt="Chatter"
                 width={100}
@@ -79,6 +80,7 @@ const Navigation = () => {
           <NavbarBrand>
             <Link as={RouterLink} to="/" className="font-bold text-inherit">
               <Image
+                className={theme === "light" ? "invert" : ""}
                 src="/logobabble.png"
                 alt="Chatter"
                 width={125}
@@ -112,7 +114,7 @@ const Navigation = () => {
                 */}
           {!isLogged && (
             <>
-              <NavbarItem className="hidden md:flex">
+              <NavbarItem className="hidden sm:flex">
                 <Button
                   as={Link}
                   href="login"
@@ -122,7 +124,7 @@ const Navigation = () => {
                   Bejelentkezés
                 </Button>
               </NavbarItem>
-              <NavbarItem className="hidden md:flex">
+              <NavbarItem className="hidden sm:flex">
                 <Button
                   as={Link}
                   color="warning"
