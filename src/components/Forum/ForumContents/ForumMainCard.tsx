@@ -1,5 +1,4 @@
 import { Card, Divider, Skeleton } from '@nextui-org/react'
-import React from 'react'
 
 const ForumMainCard = () => {
   return (
@@ -22,7 +21,7 @@ const ForumMainCard = () => {
             </Skeleton>
           </div>
         </div>
-
+  
         <div className="space-y-4 mt-3 ">
           <Skeleton className="w-3/6 rounded-lg">
             <div className="h-6 w-3/5 rounded-lg bg-default-200"></div>
@@ -57,6 +56,10 @@ const ForumMainCard = () => {
         </div>
       </div>
     </div>
+    <Divider />
+    <Skeleton className="w-1/7 rounded-lg">
+            <div className="h-60 w-3/5 rounded-lg bg-default-200"></div>
+          </Skeleton>
   </Card>
   )
 }
