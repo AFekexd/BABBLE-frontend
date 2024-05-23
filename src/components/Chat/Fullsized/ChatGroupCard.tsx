@@ -22,8 +22,8 @@ const ChatGroupCard = () => {
             </Badge>
           </div>
 
-          <div className="group-title">
-            <p>Nagymenok</p>
+          <div className="font-bold ">
+            <p>Lorem ipsum dolor sit amet consectetur.</p>
           </div>
         </div>
       </div>

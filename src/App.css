@@ -1,0 +1,6 @@
+#chatHomeTitle{
+    text-shadow: 2px 2px 4px #0011ff;
+    color: #ffffff;
+}
+/*if parent element of chatHomeTitle is hovered, then change the color of chatHomeTitle*/
+

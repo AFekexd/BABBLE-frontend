@@ -49,11 +49,10 @@ const ProfileModal = ({ isOpen, onOpenChange }) => {
                 </>
               ) : (
                 <>
-                  <div className="flex flex-col gap-2 p-3">
+                  <div className="flex flex-col gap-2 p-">
+                    <Card></Card>
                     <Card>
                       <p>Név: {user.name}</p>
-                    </Card>
-                    <Card>
                       <p>Email: {user.email}</p>
                     </Card>
                   </div>

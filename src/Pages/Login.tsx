@@ -1,31 +1,65 @@
-import { Button, Image, Input, Link } from "@nextui-org/react";
+import { Button, Image, Input, Link, Spinner } from "@nextui-org/react";
 import { useState } from "react";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher";
-import { loginUser } from "../hooks/UserHooks";
+import { useLoginMutation } from "../features/auth/authApiSlice";
+import { useAppDispatch } from "../app/hooks";
+
 import "../styles/Login.css";
+import { CustomToast } from "../components/CustomToast";
+import { setCredentials } from "../features/auth/authSlice";
 const Login = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
+  const [trigger, { isLoading }] = useLoginMutation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useAppDispatch();
 
   document.title = "Bejelentkezés - Chatter";
 
   const handleSubmit = (e: any) => {
+    console.log("submit");
     e.preventDefault();
-    loginUser(username, password);
+
+    trigger({ username, password }).then((res) => {
+      if (res.data) {
+        dispatch(
+          setCredentials({
+            jwt: res.data.access_token,
+            refresh_token: res.data.refresh_token,
+            parsedToken: res.data.parsedToken as any,
+          })
+        );
+        CustomToast("Sikeres bejelentkezés", "success");
+      } else {
+        CustomToast("Sikertelen bejelentkezés", "error");
+      }
+    });
   };
+
+  //on enter press submit
+  const handleKeyPress = (e: any) => {
+    if (e.key === "Enter") {
+      handleSubmit(e);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center h-screen ">
       <div className="loginHeader flex flex-row items-center justify-center gap-2 font-bold text-2xl">
         <Image src="/logobabble.png" alt="Chatter" width={200} height={50} />
         <ThemeSwitcher />
       </div>
-      <div className="flex flex-col gap-2 w-72 ">
+
+      <form
+        onSubmit={handleSubmit}
+        onKeyPress={handleKeyPress}
+        className="flex flex-col items-center gap-2 w-72"
+      >
         <Input
           variant="faded"
           size="sm"
+          isRequired
           label="Felhasználónév"
           onChange={(e) => setUsername(e.target.value)}
           value={username}
@@ -34,36 +68,39 @@ const Login = () => {
           variant="faded"
           size="sm"
           label="Jelszó"
-          placeholder="Add meg a jelszavad"
+          isRequired
           type={isPasswordVisible ? "text" : "password"}
           className="flex flex-row items-center justify-center gap-2"
           onChange={(e) => setPassword(e.target.value)}
           value={password}
           endContent={
-            <button
+            <div
               className="focus:outline-none"
-              onClick={() => setIsPasswordVisible((v) => !v)}
+              onClick={() => setIsPasswordVisible(!isPasswordVisible)}
             >
               {isPasswordVisible ? (
                 <BsEyeSlash className="text-xl text-default-400 pointer-events-none" />
               ) : (
                 <BsEye className="text-xl text-default-400 pointer-events-none" />
               )}
-            </button>
+            </div>
           }
         />
-      </div>
+      </form>
+
       <Button
         as={Link}
         href="/home"
+        type="submit"
         className="w-72"
         color="primary"
-        style={{ marginTop: 10 }}
         onClick={handleSubmit}
+        style={{ marginTop: 10 }}
       >
         {" "}
         Bejelentkezés{" "}
       </Button>
+
       <div>
         <p className="text-sm mt-2">
           {" "}
@@ -73,6 +110,7 @@ const Login = () => {
           </Link>
         </p>
       </div>
+      <Spinner size="md" className={isLoading ? "pt-3" : "pt-3 invisible"} />
     </div>
   );
 };

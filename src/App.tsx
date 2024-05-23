@@ -1,10 +1,14 @@
+import { ToastContainer } from "react-toastify";
 import "./App.css";
 import Pages from "./Pages";
 
 function App() {
-    return (
-            <Pages />
-    );
+  return (
+    <>
+      <ToastContainer />
+      <Pages />
+    </>
+  );
 }
 
 export default App;

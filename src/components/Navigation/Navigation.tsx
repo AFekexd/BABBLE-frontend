@@ -1,6 +1,5 @@
 import {
   Avatar,
-  Button,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -14,6 +13,7 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   NavbarMenuToggle,
+  Spinner,
   useDisclosure,
 } from "@nextui-org/react";
 import { useTheme } from "next-themes";
@@ -22,6 +22,10 @@ import { Link as RouterLink } from "react-router-dom";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 import ProfileModal from "../Modals/ProfileModal";
 import ThemeModal from "../Modals/ThemeModal";
+import { useAppDispatch } from "../../app/hooks";
+import { deleteCredentials } from "../../features/auth/authSlice";
+import { useLogoutMutation } from "../../features/auth/authApiSlice";
+import { CustomToast } from "../CustomToast";
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const {
@@ -37,18 +41,32 @@ const Navigation = () => {
   } = useDisclosure();
 
   const { theme } = useTheme();
-  const [isLogged] = useState(false);
+  const [trigger, { isLoading }] = useLogoutMutation();
   const menuItems = [
-    {
-      title: "Fórum",
-      href: "/forum",
-    },
     {
       title: "Beszélgetés",
       href: "/chat",
     },
+    {
+      title: "Fórum",
+      href: "/forum",
+    },
   ];
+
+  const dispatch = useAppDispatch();
   const currentPath = window.location.pathname.split("/")[1];
+
+  function logout() {
+    trigger({}).then((res) => {
+      console.log(res);
+      if (res) {
+        dispatch(deleteCredentials());
+      } else {
+        CustomToast("Sikertelen kijelentkezés", "error");
+      }
+    });
+  }
+
   return (
     <>
       <Navbar
@@ -112,7 +130,7 @@ const Navigation = () => {
                     <LangSelector />
                 </NavbarItem>
                 */}
-          {!isLogged && (
+          {/*!isLogged && (
             <>
               <NavbarItem className="hidden sm:flex">
                 <Button
@@ -135,8 +153,8 @@ const Navigation = () => {
                 </Button>
               </NavbarItem>
             </>
-          )}
-          {!isLogged && (
+          )*/}
+          {
             <NavbarItem>
               <Dropdown>
                 <DropdownTrigger>
@@ -181,13 +199,17 @@ const Navigation = () => {
                     key="logout"
                     className="text-danger"
                     color="danger"
+                    onClick={() => {
+                      logout();
+                    }}
+                    startContent={isLoading ? <Spinner size="sm" /> : undefined}
                   >
                     Kijelentkezés
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
             </NavbarItem>
-          )}
+          }
         </NavbarContent>
 
         <NavbarMenu aria-label="Main navigation">
@@ -199,12 +221,13 @@ const Navigation = () => {
                 style={{ fontWeight: 500 }}
                 to={item.href}
                 size="lg"
+                onClick={() => setIsMenuOpen(false)}
               >
                 {item.title}
               </Link>
             </NavbarMenuItem>
           ))}
-          {!isLogged && (
+          {/*!isLogged && (
             <div className="flex gap-2 fixed bottom-10">
               <NavbarMenuItem className="lg:flex">
                 <Button
@@ -212,6 +235,7 @@ const Navigation = () => {
                   href="login"
                   variant={theme === "dark" ? "flat" : "solid"}
                   color="primary"
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   Bejelentkezés
                 </Button>
@@ -222,12 +246,13 @@ const Navigation = () => {
                   color="warning"
                   href="register"
                   variant={theme === "dark" ? "flat" : "solid"}
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   Regisztáció
                 </Button>
               </NavbarMenuItem>
             </div>
-          )}
+          ) */}
         </NavbarMenu>
       </Navbar>
       <ProfileModal isOpen={isProfileOpen} onOpenChange={setProfileOpen} />

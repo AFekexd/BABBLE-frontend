@@ -10,7 +10,12 @@
   background-size: cover;
   background-repeat: no-repeat;
   
- min-height: 100vh;
+  min-height: 100vh;
+}
+
+.light{
+  --background-image: linear-gradient(15deg, #a5c6d8 0%, #00000000 100%);
+
 }
 
 .navbar{
@@ -19,23 +24,29 @@
 }
 /* scroll bar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
+
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
   background: #292929;
+  border-radius: 10px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #575757;
+  border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #2b2b2b;
+  cursor: pointer;
+
 }
+
 
 html {
   scroll-behavior: smooth;

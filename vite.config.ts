@@ -9,4 +9,9 @@ export default defineConfig({
       overlay: false,
     },
   },
+  define: {
+    'process.env': {
+      REACT_APP_SECRET_KEY: "LbbRB471foteAQgLj8P9vOYiXpZIO6qn",
+    },
+  },
 })

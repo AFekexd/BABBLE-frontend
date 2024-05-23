@@ -1,5 +1,5 @@
-import { Card } from "@nextui-org/react";
 import { useState, useEffect } from "react";
+import { MdFlag, MdGroup } from "react-icons/md";
 
 const AdminInfoCard = () => {
   const [time, setTime] = useState(new Date().toLocaleTimeString());
@@ -12,9 +12,9 @@ const AdminInfoCard = () => {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <div>
-        <div className="flex flex-row gap-1 justify-center items-center p-2">
+        <div className="flex flex-row gap-1 items-center p-2">
           <h1 className="text-2xl font-bold"> {time}</h1>
         </div>
 
@@ -27,18 +27,15 @@ const AdminInfoCard = () => {
         </p>
       </div>
 
-      <Card
-        className="w-full h-fit p-3 outline-primary"
-        style={{ marginTop: "1rem" }}
-      >
-        Felhasználók: 0
-      </Card>
-      <Card
-        className="w-full h-fit p-3 outline-danger"
-        style={{ marginTop: "1rem" }}
-      >
-        Jelentések: 0
-      </Card>
+      <div className="flex flex-row gap-1 p-2 text-success text-lg">
+        <MdGroup />
+
+        <p>0/500</p>
+      </div>
+      <div className="flex flex-row gap-1 p-2 text-danger text-lg">
+        <MdFlag />
+        <p>0</p>
+      </div>
     </div>
   );
 };

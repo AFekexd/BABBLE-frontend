@@ -23,7 +23,7 @@ const MobileChat = () => {
     <>
       <div className="w-full h-95dvh p-2 flex flex-col gap-1">
         <Button
-          className="h-[8%] w-full cursor-pointer font-bold"
+          className="h-[6%] w-full cursor-pointer font-bold"
           onClick={onOpenChange}
           startContent={<MdChat size={30} />}
           color="warning"

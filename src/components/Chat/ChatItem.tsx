@@ -1,89 +1,27 @@
-import { Link } from "@nextui-org/react";
+import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
 
-const ChatItem = () => {
-  const sent = (timestamp: Date) => {
-    const date = new Date(timestamp);
-    return `${date.getHours()}:${date.getMinutes()}`;
-  };
-
-  const checkEmbed = (url: string) => {
-    if (url.includes("spotify")) {
-      const embed = url.replace("open.spotify.com", "embed.spotify.com");
-      return (
-        <>
-          <Link href={url} color="primary">
-            {" "}
-            {url}{" "}
-          </Link>
-          <iframe
-            src={embed}
-            width="100%"
-            height="152"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy"
-            className="spotify-embed"
-          ></iframe>
-        </>
-      );
-    } else {
-      const embed = url.replace("watch?v=", "embed/");
-      return (
-        <>
-          <div className="mediaContainer">
-            <Link href={url} color="primary">
-              {" "}
-              {url}{" "}
-            </Link>
-            <iframe
-              src={embed}
-              title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          </div>
-        </>
-      );
-    }
-  };
-  const contentRender = (chat: any) => {
-    switch (chat.type) {
-      case "text":
-        return <p className="text-sm text-gray-200">{chat.content}</p>;
-      case "image":
-        return (
-          <img
-            src={chat.content}
-            alt="chat"
-            className="w-36 h-36 object-cover"
-          />
-        );
-      case "video":
-        return (
-          <video
-            src={chat.content}
-            controls
-            className="w-36 h-36 object-cover"
-          ></video>
-        );
-      case "link":
-        return chat.content.includes("youtube") ||
-          chat.content.includes("spotify") ? (
-          checkEmbed(chat.content)
-        ) : (
-          <a href={chat.content} className="text-sm text-blue-400">
-            {chat.content}
-          </a>
-        );
-      default:
-        return <p className="text-sm text-gray-200">{chat.content}</p>;
-    }
-  };
-
-  const ChatRender = () => {
-    return <></>;
-  };
-
-  return ChatRender();
+const ChatItem = ({ recieved }) => {
+  return (
+    <Card
+      className={
+        "w-fit drop-shadow-md " +
+        (recieved ? "bg-gray-700 self-start" : "bg-primary self-end")
+      }
+    >
+      <CardHeader className="p-2">{recieved ? "Zoey Lang" : "You"}</CardHeader>
+      <CardBody className="w-full p-2">
+        {Array.from({ length: Math.floor(Math.random() * 10) + 1 }).map(
+          (_, index) => (
+            <div key={index} className="w-full">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos,
+              quae.
+            </div>
+          )
+        )}
+      </CardBody>
+      <CardFooter className="p-1">12:12</CardFooter>
+    </Card>
+  );
 };
 
 export default ChatItem;

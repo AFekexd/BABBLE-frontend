@@ -34,7 +34,7 @@ const RecentItem = ({ item }) => {
         <div className="w-5/12 sm:w-1/5">
           <div className="flex flex-row ">
             <Skeleton className="rounded-full sm:w-1/3 min-w-[50px] w-4/12">
-              <div className="sm:h-24  rounded-lg bg-default-300"></div>
+              <div className="rounded-lg bg-default-300"></div>
             </Skeleton>
             <div className="flex flex-col gap-2 ml-2 md:w-2/3 w-8/12">
               <Skeleton className="h-6  rounded-lg">
