@@ -6,6 +6,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: "/users",
         method: "GET",
+        credentials: "include",
       }),
     }),
     getUserViaId: builder.query({

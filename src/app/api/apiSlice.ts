@@ -3,18 +3,19 @@ import {
   deleteCredentials,
   setCredentials,
 } from "../../features/auth/authSlice";
-import { RootState } from "../store";
-
-const tokenSelector = (state: RootState) => state.user.jwt;
+import { decrypt } from "../../util/encrypt";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://api-babble.afeke.com/",
+  baseUrl: "http://192.168.0.219:8080/",
   credentials: "include",
-  prepareHeaders: (headers) => {
-    const token = tokenSelector({ user: { jwt: "" } } as RootState);
+  prepareHeaders: (headers, { getState }) => {
+    //@ts-ignore
+    const token = decrypt(getState().user.jwt);
+    console.log(token);
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);
       headers.set("Access-Control-Allow-Origin", "true");
+      headers.set("Access-Control-Allow-Credentials", "true");
     }
     return headers;
   },

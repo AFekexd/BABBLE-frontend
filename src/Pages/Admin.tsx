@@ -12,7 +12,7 @@ const Admin = () => {
 
   const screenSize = window.innerWidth;
 
-  const { data, error, isLoading, refetch } = useGetUsersQuery({} as any);
+  const { data, error, isLoading, refetch } = useGetUsersQuery({});
 
   useEffect(() => {
     if (data) {
