@@ -12,7 +12,7 @@ import { FaFlag } from "react-icons/fa";
 import { HiDotsVertical } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
-const ForumItem = () => {
+const ForumItem = ({ item }: { item: any }) => {
   //on card click navigate to forumContent
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -20,25 +20,47 @@ const ForumItem = () => {
       <div className="flex flex-row gap-1 sm:gap-2 w-full">
         <div className="w-5/12 sm:w-1/5">
           <div className="flex flex-row ">
-            <Skeleton className="rounded-full sm:w-1/3 min-w-[50px] w-4/12">
-              <div className="sm:h-24  rounded-lg bg-default-300"></div>
-            </Skeleton>
-            <div className="flex flex-col gap-2 ml-2 md:w-2/3 w-8/12">
-              <Skeleton className="h-6  rounded-lg">
-                <div className="h-2 w-4/5 rounded-lg bg-default-200"></div>
-              </Skeleton>
-              <Skeleton className="h-6 w-2/4 rounded-lg">
-                <div className="h-2 w-4/5 rounded-lg bg-default-200"></div>
-              </Skeleton>
-            </div>
+            {!item && (
+              <>
+                <Skeleton className="rounded-full sm:w-1/3 min-w-[50px] w-4/12">
+                  <div className="sm:h-24  rounded-lg bg-default-300"></div>
+                </Skeleton>
+                <div className="flex flex-col gap-2 ml-2 md:w-2/3 w-8/12">
+                  <Skeleton className="h-6  rounded-lg">
+                    <div className="h-2 w-4/5 rounded-lg bg-default-200"></div>
+                  </Skeleton>
+                  <Skeleton className="h-6 w-2/4 rounded-lg">
+                    <div className="h-2 w-4/5 rounded-lg bg-default-200"></div>
+                  </Skeleton>
+                </div>
+              </>
+            )}
+            {item && (
+              <>
+                <img
+                  src="https://via.placeholder.com/150"
+                  alt="profile"
+                  className="rounded-full sm:w-1/3 min-w-[50px] w-4/12"
+                />
+                <div className="flex flex-col gap-2 ml-2 md:w-2/3 w-8/12">
+                  <h1 className="text-lg font-bold text-white">{item.title}</h1>
+                  <p className="text-sm text-default-100">{item.username}</p>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
         <div className="w-6/12 sm:w-4/5">
           <Link to={`/forum/asd`}>
-            <Skeleton className="rounded-lg">
-              <div className="h-12 rounded-lg bg-default-300"></div>
-            </Skeleton>
+            {!item && (
+              <Skeleton className="rounded-lg">
+                <div className="h-12 rounded-lg bg-default-300"></div>
+              </Skeleton>
+            )}
+            {item && (
+              <h1 className="text-lg font-bold text-white">{item.title}</h1>
+            )}
           </Link>
         </div>
 

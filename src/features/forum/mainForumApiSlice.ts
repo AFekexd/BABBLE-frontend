@@ -43,3 +43,12 @@ export const mainForumApiSlice = apiSlice.injectEndpoints({
   }),
   overrideExisting: false,
 });
+
+export const {
+  useGetForumQuery,
+  useGetThreadQuery,
+  useCreateThreadMutation,
+  useDeleteThreadMutation,
+  useReportThreadMutation,
+  useUpdateThreadMutation,
+} = mainForumApiSlice;
