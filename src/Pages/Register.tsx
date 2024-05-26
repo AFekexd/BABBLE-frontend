@@ -6,7 +6,6 @@ import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher";
 import { useTheme } from "next-themes";
 
 const Register = () => {
-  document.title = "Regisztráció - Chatter";
   const { theme } = useTheme();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   return (

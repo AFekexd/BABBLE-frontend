@@ -15,8 +15,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const dispatch = useAppDispatch();
 
-  document.title = "Bejelentkezés - Chatter";
-
   const handleSubmit = (e: any) => {
     console.log("submit");
     e.preventDefault();

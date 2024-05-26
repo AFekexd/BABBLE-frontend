@@ -14,10 +14,6 @@ const RequireAuth: React.FunctionComponent<Props> = (props) => {
   const jwt = useSelector((state) => state.user.jwt);
 
   useEffect(() => {
-    console.log(isLogged);
-  }, [isLogged]);
-
-  useEffect(() => {
     console.log(jwt);
     if (jwt) {
       const token = DecodeToken(jwt);
