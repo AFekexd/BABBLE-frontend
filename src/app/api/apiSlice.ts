@@ -6,7 +6,7 @@ import {
 import { decrypt } from "../../util/encrypt";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://192.168.0.219:8080/",
+  baseUrl: "http://localhost:8080/",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     //@ts-ignore
