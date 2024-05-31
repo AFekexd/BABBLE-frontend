@@ -11,7 +11,7 @@ const baseQuery = fetchBaseQuery({
   prepareHeaders: (headers, { getState }) => {
     //@ts-ignore
     const token = decrypt(getState().user.jwt);
-    console.log(token);
+
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);
       headers.set("Access-Control-Allow-Origin", "true");

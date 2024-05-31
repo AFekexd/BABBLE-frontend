@@ -2,10 +2,18 @@ import ForumSearch from "../components/Forum/ForumSearch";
 import ForumList from "../components/Forum/ForumList";
 
 import RecentList from "../components/Forum/Recent/RecentList";
-import "../components/Forum/Forum.css";
-import { Button, Divider, Tooltip, useDisclosure } from "@nextui-org/react";
+
+import {
+  Button,
+  Card,
+  Divider,
+  Tooltip,
+  useDisclosure,
+} from "@nextui-org/react";
 import { FaPlus } from "react-icons/fa";
 import ForumModal from "../components/Modals/ForumModal";
+
+import "../components/Forum/Forum.css";
 const Forum = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -20,18 +28,17 @@ const Forum = () => {
           <FaPlus className="text-white" size={25} />
         </div>
       </Tooltip>
-      <div id="forumContainer">
+      <div className="w-[70%] m-auto ">
         <div id="forumHeader">
           <ForumSearch />
         </div>
         <div
           id="forumBody"
-          className="w-full flex flex-col sm:flex-row gap-4 h-95dvh sm:h-full"
+          className=" flex flex-col sm:flex-row gap-4 h-95dvh sm:h-50dvh"
         >
-          <div id="forumList" className="sm:w-5/6 h-5/12">
-            <div id="forumListBody">
-              <ForumList />
-            </div>
+          <div id="forumList" className="sm:w-9/12 ">
+            <ForumList />
+
             <div className="p-2 sm:hidden mb-2">
               <Button className="w-full" color="primary" variant="solid">
                 Load More
@@ -39,19 +46,19 @@ const Forum = () => {
             </div>
             <Divider className="sm:hidden" />
           </div>
-          <div
-            id="forumRecent"
-            className="sm:w-1/6 sm:bg-default-100 rounded h-full m-2"
-          >
+          <Card className="sm:w-3/12 bg-transparent rounded m-2 ">
             <h1
               className="text-center text-2xl font-bold rounded
-          sticky top-0 bg-primary-100 sm:bg-primary-100 p-2 sm:p-4 z-20
+          sticky top-0 bg-primary-100 sm:bg-primary-100 p-2 sm:p-4 z-20 
           "
             >
               Recent
             </h1>
-            <RecentList />
-          </div>
+            TODO
+            <div className="invisible">
+              <RecentList />
+            </div>
+          </Card>
         </div>
       </div>
     </>

@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -14,10 +13,12 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
   Spinner,
+  Tab,
+  Tabs,
   useDisclosure,
 } from "@nextui-org/react";
 import { useTheme } from "next-themes";
-import { useState } from "react";
+import { Key, useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 import ProfileModal from "../Modals/ProfileModal";
@@ -26,6 +27,8 @@ import { useAppDispatch } from "../../app/hooks";
 import { deleteCredentials } from "../../features/auth/authSlice";
 import { useLogoutMutation } from "../../features/auth/authApiSlice";
 import { CustomToast } from "../CustomToast";
+import PersonalAvatar from "../Avatar/PersonalAvatar";
+import { useLazyGetPersonalPfpQuery } from "../../features/user/userApiSlice";
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const {
@@ -67,12 +70,33 @@ const Navigation = () => {
     });
   }
 
+  const [pfpTrigger] = useLazyGetPersonalPfpQuery({});
+
+  const [status, setStatus] = useState<Key>("online");
+
+  const [data, setData] = useState<any>();
+
+  const refetchPfp = () => {
+    pfpTrigger({}).then((res) => {
+      console.log("triggered pfp query");
+      setData(res.data.pfp);
+    });
+  };
+
+  useEffect(() => {
+    pfpTrigger({}).then((res) => {
+      console.log("triggered pfp query");
+      setData(res.data.pfp);
+    });
+  }, [pfpTrigger]);
+
   return (
     <>
       <Navbar
         isBordered
         isMenuOpen={isMenuOpen}
         onMenuOpenChange={setIsMenuOpen}
+        aria-label="Main navigation"
       >
         <NavbarContent className="sm:hidden" justify="start">
           <NavbarMenuToggle
@@ -125,53 +149,51 @@ const Navigation = () => {
           <NavbarItem className="lg:flex">
             <ThemeSwitcher />
           </NavbarItem>
-          {/*
-                <NavbarItem className="lg:flex">
-                    <LangSelector />
-                </NavbarItem>
-                */}
-          {/*!isLogged && (
-            <>
-              <NavbarItem className="hidden sm:flex">
-                <Button
-                  as={Link}
-                  href="login"
-                  variant={theme === "dark" ? "flat" : "solid"}
-                  color="primary"
-                >
-                  Bejelentkezés
-                </Button>
-              </NavbarItem>
-              <NavbarItem className="hidden sm:flex">
-                <Button
-                  as={Link}
-                  color="warning"
-                  href="register"
-                  variant={theme === "dark" ? "flat" : "solid"}
-                >
-                  Regisztáció
-                </Button>
-              </NavbarItem>
-            </>
-          )*/}
+
           {
             <NavbarItem>
               <Dropdown>
                 <DropdownTrigger>
-                  <Avatar
-                    isBordered
-                    as="button"
-                    className="transition-transform"
-                    color="danger"
-                    name="Jason Hughes"
-                    size="sm"
-                    src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-                  />
+                  <div>
+                    <PersonalAvatar
+                      data={data}
+                      color={
+                        status === "online"
+                          ? "success"
+                          : status === "dnd"
+                          ? "warning"
+                          : status === "away"
+                          ? "danger"
+                          : "default"
+                      }
+                    />
+                  </div>
                 </DropdownTrigger>
                 <DropdownMenu
                   variant="faded"
                   aria-label="Dropdown menu with description"
                 >
+                  <DropdownItem key="Status" variant="light" isReadOnly>
+                    <Tabs
+                      color={
+                        status === "online"
+                          ? "success"
+                          : status === "dnd"
+                          ? "warning"
+                          : status === "away"
+                          ? "danger"
+                          : "default"
+                      }
+                      variant="bordered"
+                      selectedKey={status}
+                      onSelectionChange={setStatus}
+                    >
+                      <Tab title="Online" key="online" aria-label="Online" />
+                      <Tab title="Ne zavarj" key="dnd" aria-label="Ne zavarj" />
+                      <Tab title="Távol" key="away" aria-label="Távol" />
+                    </Tabs>
+                  </DropdownItem>
+
                   <DropdownItem key="profile" onClick={openProfile}>
                     Profil
                   </DropdownItem>
@@ -189,8 +211,6 @@ const Navigation = () => {
                       className="text-warning"
                       description="Szabályok és beállítások"
                       showDivider
-                      as={RouterLink}
-                      to="/admin"
                     >
                       ADMIN PANEL
                     </DropdownItem>
@@ -227,35 +247,14 @@ const Navigation = () => {
               </Link>
             </NavbarMenuItem>
           ))}
-          {/*!isLogged && (
-            <div className="flex gap-2 fixed bottom-10">
-              <NavbarMenuItem className="lg:flex">
-                <Button
-                  as={Link}
-                  href="login"
-                  variant={theme === "dark" ? "flat" : "solid"}
-                  color="primary"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Bejelentkezés
-                </Button>
-              </NavbarMenuItem>
-              <NavbarMenuItem>
-                <Button
-                  as={Link}
-                  color="warning"
-                  href="register"
-                  variant={theme === "dark" ? "flat" : "solid"}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Regisztáció
-                </Button>
-              </NavbarMenuItem>
-            </div>
-          ) */}
         </NavbarMenu>
       </Navbar>
-      <ProfileModal isOpen={isProfileOpen} onOpenChange={setProfileOpen} />
+      <ProfileModal
+        pfp={data}
+        refetchPfp={refetchPfp}
+        isOpen={isProfileOpen}
+        onOpenChange={setProfileOpen}
+      />
       <ThemeModal isOpen={isThemeOpen} onOpenChange={setThemeOpen} />
     </>
   );

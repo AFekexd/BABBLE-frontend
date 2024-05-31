@@ -6,17 +6,38 @@ import {
   ModalFooter,
   Input,
   Card,
+  Button,
+  Image,
+  ButtonGroup,
 } from "@nextui-org/react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { User } from "../../types/User";
-
-const ProfileModal = ({ isOpen, onOpenChange }) => {
+import Cropper, { ReactCropperElement } from "react-cropper";
+import "cropperjs/dist/cropper.css";
+import { useUploadUserImageMutation } from "../../features/user/userApiSlice";
+const ProfileModal = ({ pfp, refetchPfp, isOpen, onOpenChange }) => {
   const [editMode, setEditMode] = useState(false);
   const [user, setUser] = useState({
     id: 1,
     name: "tesztelek",
     email: "teszt@teszt.hu",
   } as User);
+
+  const [image, setImage] = useState("");
+  const [croppedImage, setCroppedImage] = useState();
+  const cropperRef = useRef<ReactCropperElement>(null);
+  const onCrop = () => {
+    const cropper = cropperRef.current?.cropper;
+
+    setCroppedImage(cropper.url);
+  };
+
+  const [trigger] = useUploadUserImageMutation();
+
+  useEffect(() => {
+    console.log(image);
+  }, [image]);
+
   return (
     <Modal
       isOpen={isOpen}
@@ -32,6 +53,74 @@ const ProfileModal = ({ isOpen, onOpenChange }) => {
               Profil megtekintése
             </ModalHeader>
             <ModalBody>
+              {pfp && image == "" && (
+                <label
+                  htmlFor="pfp-upload"
+                  className="cursor-pointer translate-y-5 flex justify-center"
+                >
+                  <Image
+                    style={{ height: 400, width: "100%" }}
+                    isZoomed
+                    src={pfp}
+                    isBlurred
+                  />
+                </label>
+              )}
+              <input
+                id="pfp-upload"
+                className="invisible"
+                type="file"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  const reader = new FileReader();
+
+                  reader.onload = () => setImage(reader.result as string);
+
+                  reader.readAsDataURL(file);
+                }}
+              ></input>
+              {image && (
+                <>
+                  <Cropper
+                    src={image}
+                    style={{ height: 400, width: "100%" }}
+                    background={false}
+                    zoomable={true}
+                    guides={true}
+                    viewMode={1}
+                    aspectRatio={1}
+                    ref={cropperRef}
+                    crop={onCrop}
+                    scalable={false}
+                    cropBoxResizable={false}
+                    cropBoxMovable={true}
+                    dragMode="move"
+                  />
+                  <ButtonGroup>
+                    <Button
+                      onClick={() => {
+                        const cropper = cropperRef.current?.cropper;
+                        console.log(cropper.getCroppedCanvas().toDataURL());
+                        trigger({
+                          image: cropper.getCroppedCanvas().toDataURL(),
+                        }).then(() => {
+                          setImage("");
+                          refetchPfp();
+                        });
+                      }}
+                    >
+                      Crop
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        setImage("");
+                      }}
+                    >
+                      Mégse
+                    </Button>
+                  </ButtonGroup>
+                </>
+              )}
               {editMode ? (
                 <>
                   <Input
@@ -58,12 +147,21 @@ const ProfileModal = ({ isOpen, onOpenChange }) => {
                   </div>
                 </>
               )}
-
               <button onClick={() => setEditMode(!editMode)}>
                 {editMode ? "Mentés" : "Szerkesztés"}
               </button>
             </ModalBody>
-            <ModalFooter></ModalFooter>
+            <ModalFooter>
+              <Button
+                fullWidth
+                color="danger"
+                onClick={() => {
+                  onClose();
+                }}
+              >
+                Bezárás
+              </Button>
+            </ModalFooter>
           </>
         )}
       </ModalContent>

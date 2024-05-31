@@ -1,7 +1,5 @@
 
-#forumContainer {
-  height: 80dvh;
-}
+
 .RecentList {
 
 padding: 10px;
@@ -22,10 +20,7 @@ gap: 10px;
     cursor: pointer;
 }
 
-#forumList{
-    max-height: 100%;
-    overflow-y: auto;
-}
+
 
 #ForumCommentSection::-webkit-scrollbar {
   width: 5px;

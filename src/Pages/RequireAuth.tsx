@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Login from "./Login";
 import { Outlet, Router, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { DecodeToken, IsTokenExpired } from "../features/jwt";
+import { DecodeToken } from "../features/jwt";
 
 type Props = {
   roles: string[];
@@ -12,16 +12,21 @@ type Props = {
 const RequireAuth: React.FunctionComponent<Props> = (props) => {
   const [isLogged, setIsLogged] = useState(false);
   const jwt = useSelector((state) => state.user.jwt);
+  const refreshToken = useSelector((state) => state.user.refresh_token);
   const router = Router;
   const navigate = useNavigate();
   useEffect(() => {
-    console.log(jwt);
     if (jwt) {
       const token = DecodeToken(jwt);
-      console.log("Expired: " + IsTokenExpired(jwt));
+      const refresh = DecodeToken(refreshToken);
       console.log(token);
-
-      setIsLogged(true);
+      console.log(refresh);
+      if (token.exp < Date.now() / 1000) {
+        setIsLogged(false);
+        navigate("/");
+      } else {
+        setIsLogged(true);
+      }
     } else {
       setIsLogged(false);
       navigate("/");

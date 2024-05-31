@@ -59,10 +59,10 @@ const Pages = () => {
           <Route
             path="/forum/:forumId"
             element={
-              <>
+              <div className="flex flex-col items-center justify-center h-screen gap-4">
                 <Navigation />
                 <ForumContent />
-              </>
+              </div>
             }
           ></Route>
           {true && (
@@ -85,8 +85,8 @@ const Pages = () => {
               </div>
             }
           ></Route>
-          <Route path="/register" element={<Register />}></Route>
         </Route>
+        <Route path="/register" element={<Register />}></Route>
       </Routes>
     </BrowserRouter>
   );

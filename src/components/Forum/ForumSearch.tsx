@@ -1,35 +1,43 @@
-import { Card, Input, Select, SelectItem } from "@nextui-org/react";
+import {
+  Accordion,
+  AccordionItem,
+  Card,
+  Divider,
+  Input,
+} from "@nextui-org/react";
+import { useState } from "react";
 import { MdSearch } from "react-icons/md";
 
 const ForumSearch = () => {
+  const [search, setSearch] = useState("");
+  const [accordion, setAccordion] = useState(false);
   return (
-    <Card className="p-1 m-2">
-      <div className="flex gap-2">
-        <Input
-          type="text"
-          placeholder="Search"
-          endContent={
-            <MdSearch
-              className="cursor-pointer hover:text-primary-500 transition-all duration-300 ease-in-out"
-              onClick={() => console.log("Search")}
-            />
-          }
-        />
-        <Select placeholder="Filter">
-          <SelectItem key={1} value="all">
-            All
-          </SelectItem>
-          <SelectItem key={2} value="recent">
-            Recent
-          </SelectItem>
-          <SelectItem key={3} value="popular">
-            Popular
-          </SelectItem>
-          <SelectItem key={4} value="unanswered">
-            Unanswered
-          </SelectItem>
-        </Select>
-      </div>
+    <Card className="m-2 flex flex-col gap-2 p-2">
+      <Input
+        isDisabled
+        type="text"
+        className="w-full"
+        placeholder="Search"
+        endContent={
+          <MdSearch
+            className="cursor-pointer hover:text-primary-500 transition-all duration-300 ease-in-out"
+            onClick={() => console.log("Search")}
+          />
+        }
+      />
+      <Divider />
+      <Accordion className="w-full">
+        <AccordionItem
+          key="1"
+          aria-label="Accordion 1"
+          title="Filters"
+          onPress={() => setAccordion(!accordion)}
+        >
+          <Input type="text" placeholder="Filter" className="w-full" />
+          <Input type="text" placeholder="Filter" className="w-full" />
+          <Input type="text" placeholder="Filter" className="w-full" />
+        </AccordionItem>
+      </Accordion>
     </Card>
   );
 };

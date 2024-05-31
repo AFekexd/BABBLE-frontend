@@ -19,7 +19,7 @@ const Home = () => {
               <Image
                 alt="Woman listing to music"
                 height={200}
-                src="/public/chat.png"
+                src="/chat.png"
                 width={500}
               />
               <h1
@@ -47,7 +47,7 @@ const Home = () => {
                 alt="Woman listing to music"
                 className="object-cover"
                 height={200}
-                src="/public/forum.png"
+                src="/forum.png"
                 width={500}
               />
               <h1

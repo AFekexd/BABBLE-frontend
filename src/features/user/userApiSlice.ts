@@ -28,6 +28,26 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "DELETE",
       }),
     }),
+    uploadUserImage: builder.mutation({
+      query: (image) => ({
+        url: `/users/image`,
+        method: "PUT",
+        body: image,
+      }),
+    }),
+    getUserImage: builder.query({
+      query: (userId) => ({
+        url: `/users/pfp/${userId}`,
+        method: "GET",
+      }),
+    }),
+    getPersonalPfp: builder.query({
+      query: () => ({
+        url: `/users/pfp`,
+        method: "GET",
+      }),
+    }),
+
     /*
     TODO: BACKEND IMPLEMENTATION
     
@@ -85,6 +105,9 @@ export const {
   useGetUserViaIdQuery,
   useUpdateUserMutation,
   useDeleteUserMutation,
+  useUploadUserImageMutation,
+  useLazyGetUserImageQuery,
+  useLazyGetPersonalPfpQuery,
   // useReportUserMutation,
   // useAddFriendMutation,
   // useRemoveFriendMutation,
