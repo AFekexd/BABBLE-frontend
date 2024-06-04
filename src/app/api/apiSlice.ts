@@ -6,7 +6,7 @@ import {
 import { decrypt } from "../../util/encrypt";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:8080/",
+  baseUrl: "https://api-babble.afeke.com",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     //@ts-ignore
