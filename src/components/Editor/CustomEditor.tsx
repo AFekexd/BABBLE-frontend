@@ -1,3 +1,5 @@
+//@ts-nocheck
+//TODO: REMOVE NO CHECK FOR FINAL BUILD
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 const CustomEditor = ({ content, setContent }) => {

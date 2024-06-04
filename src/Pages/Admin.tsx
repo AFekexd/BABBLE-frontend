@@ -42,7 +42,7 @@ const Admin = () => {
           />
         );
       case "profanity":
-        return <AdminTable type="profanity" rows={rows} columns={columns} />;
+        return <AdminTable type="profanity" rows={rows} />;
       case "reports":
         return (
           <AdminTable
@@ -52,7 +52,7 @@ const Admin = () => {
           />
         );
       default:
-        return <AdminTable type="users" rows={rows} columns={columns} />;
+        return <AdminTable type="users" rows={rows} />;
     }
   };
 

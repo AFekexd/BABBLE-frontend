@@ -6,11 +6,15 @@ import {
 import { useEffect, useState } from "react";
 
 interface Option {
+  [x: string]: string;
   readonly value: string;
   readonly label: string;
 }
 const SearchSelect = ({ setTags }: { setTags: (tags: string[]) => void }) => {
-  const createOption = (id, name) => ({ value: id, label: name });
+  const createOption = (id: string, name: string): Option => ({
+    value: id,
+    label: name,
+  });
 
   const [trigger] = useLazySearchTagsQuery();
   const [createdTagTrigger, { isLoading }] = useCreateTagMutation();
@@ -20,7 +24,7 @@ const SearchSelect = ({ setTags }: { setTags: (tags: string[]) => void }) => {
     if (!inputValue) return [];
     if (inputValue.length < 3) return [];
     const response = await trigger(inputValue.toLocaleLowerCase());
-    return response.data.map((tag) => createOption(tag.id, tag.name));
+    return response.data.map((tag: Option) => createOption(tag.id, tag.name));
   };
 
   const handleCreate = async (inputValue: string) => {
@@ -49,7 +53,9 @@ const SearchSelect = ({ setTags }: { setTags: (tags: string[]) => void }) => {
       noOptionsMessage={() => "Nincs találat"}
       formatCreateLabel={(inputValue) => `Létrehozás: ${inputValue}`}
       value={selectedTags}
-      onChange={(value) => setSelectedTags(value)}
+      onChange={(value) =>
+        setSelectedTags(Array.isArray(value) ? value : [value])
+      }
       styles={{
         control: (provided) => ({
           ...provided,
@@ -65,7 +71,7 @@ const SearchSelect = ({ setTags }: { setTags: (tags: string[]) => void }) => {
           width: "100%",
           backgroundColor: "#3f3f46",
         }),
-        option: (provided, state) => ({
+        option: (provided) => ({
           ...provided,
           backgroundColor: "#29292e",
           color: "#f8f8f2",

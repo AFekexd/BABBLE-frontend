@@ -1,6 +1,6 @@
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
 
-const ChatItem = ({ recieved }) => {
+const ChatItem = ({ recieved }: { recieved: boolean }) => {
   return (
     <Card
       className={

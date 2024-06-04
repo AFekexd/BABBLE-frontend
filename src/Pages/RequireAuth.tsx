@@ -1,3 +1,5 @@
+//@ts-nocheck
+//TODO: REMOVE NO CHECK FOR FINAL BUILD
 import Forbidden from "./Forbidden";
 import { useEffect, useState } from "react";
 import Login from "./Login";

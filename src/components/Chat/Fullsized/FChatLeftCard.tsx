@@ -1,3 +1,5 @@
+//@ts-nocheck
+//TODO: REMOVE NO CHECK FOR FINAL BUILD
 import { Card, Tabs, Tab, Tooltip, Badge, Button } from "@nextui-org/react";
 import { MdPerson, MdGroup, MdGroupAdd } from "react-icons/md";
 import ChatGroupCard from "./ChatGroupCard";

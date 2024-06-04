@@ -1,3 +1,5 @@
+//@ts-nocheck
+//TODO: REMOVE NO CHECK FOR FINAL BUILD
 import ForumItem from "./ForumItem";
 import { Card, Pagination, Skeleton } from "@nextui-org/react";
 

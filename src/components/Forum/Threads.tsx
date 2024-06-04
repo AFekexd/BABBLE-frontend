@@ -1,9 +1,5 @@
-import React from 'react'
-
 const Threads = () => {
-  return (
-    <div>Threads</div>
-  )
-}
+  return <div>Threads</div>;
+};
 
-export default Threads
+export default Threads;

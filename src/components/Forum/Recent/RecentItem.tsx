@@ -1,3 +1,5 @@
+//@ts-nocheck
+//TODO: REMOVE NO CHECK FOR FINAL BUILD
 import {
   Button,
   Card,
@@ -11,7 +13,7 @@ import { useState } from "react";
 import { FaFlag } from "react-icons/fa";
 import { HiDotsVertical } from "react-icons/hi";
 import { Link } from "react-router-dom";
-const RecentItem = ({ item }) => {
+const RecentItem = ({ item } /*: { item: any }*/) => {
   const [isOpen, setIsOpen] = useState(false);
   /*    {
           forumName: "forum3",

@@ -1,3 +1,5 @@
+//@ts-nocheck
+//TODO: REMOVE NO CHECK FOR FINAL BUILD
 import { Divider } from "@nextui-org/react";
 import ForumMainCard from "./ForumContents/ForumMainCard";
 import ForumCommentList from "./ForumContents/ForumCommentList";

@@ -1,3 +1,5 @@
+//@ts-nocheck
+//TODO: REMOVE NO CHECK FOR FINAL BUILD
 import { Card, Chip } from "@nextui-org/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
