@@ -3,8 +3,8 @@ import { apiSlice } from "../../app/api/apiSlice";
 export const mainForumApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getForum: builder.query({
-      query: () => ({
-        url: "/forum",
+      query: ({ limit = 6, offset = 0 }) => ({
+        url: "/forum?limit=" + limit + "&offset=" + offset,
         method: "GET",
       }),
     }),
@@ -45,7 +45,7 @@ export const mainForumApiSlice = apiSlice.injectEndpoints({
 });
 
 export const {
-  useGetForumQuery,
+  useLazyGetForumQuery,
   useGetThreadQuery,
   useCreateThreadMutation,
   useDeleteThreadMutation,

@@ -1,4 +1,3 @@
-import ForumSearch from "../components/Forum/ForumSearch";
 import ForumList from "../components/Forum/ForumList";
 
 import RecentList from "../components/Forum/Recent/RecentList";
@@ -14,8 +13,26 @@ import { FaPlus } from "react-icons/fa";
 import ForumModal from "../components/Modals/ForumModal";
 
 import "../components/Forum/Forum.css";
+import { useLazyGetForumQuery } from "../features/forum/mainForumApiSlice";
+import { useEffect, useState } from "react";
+import ForumSearch from "../components/Forum/ForumSearch";
 const Forum = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [trigger, { isLoading }] = useLazyGetForumQuery({});
+  const [data, setData] = useState([]);
+  const [page, setPage] = useState(1);
+  useEffect(() => {
+    if (!isOpen) getData();
+  }, [isOpen, page]);
+
+  const getData = () => {
+    trigger({
+      offset: (page - 1) * 6,
+    }).then((res) => {
+      setData(res.data);
+      console.log(res.data);
+    });
+  };
 
   return (
     <>
@@ -29,15 +46,20 @@ const Forum = () => {
         </div>
       </Tooltip>
       <div className="w-[70%] m-auto ">
-        <div id="forumHeader">
-          <ForumSearch />
-        </div>
         <div
           id="forumBody"
           className=" flex flex-col sm:flex-row gap-4 h-95dvh sm:h-50dvh"
         >
           <div id="forumList" className="sm:w-9/12 ">
-            <ForumList />
+            <div id="forumHeader">
+              <ForumSearch />
+            </div>
+            <ForumList
+              data={data}
+              isLoading={isLoading}
+              page={page}
+              setPage={setPage}
+            />
 
             <div className="p-2 sm:hidden mb-2">
               <Button className="w-full" color="primary" variant="solid">

@@ -210,6 +210,8 @@ const Navigation = () => {
                       color="warning"
                       className="text-warning"
                       description="Szabályok és beállítások"
+                      as={RouterLink}
+                      to="/admin"
                       showDivider
                     >
                       ADMIN PANEL

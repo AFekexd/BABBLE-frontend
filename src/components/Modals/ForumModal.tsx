@@ -2,6 +2,7 @@
 
 import {
   Button,
+  Divider,
   Input,
   Modal,
   ModalBody,
@@ -11,9 +12,11 @@ import {
 } from "@nextui-org/react";
 import SearchSelect from "../Search/SearchSelect";
 import { useCreateThreadMutation } from "../../features/forum/mainForumApiSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DecodeToken } from "../../features/jwt";
 import { useSelector } from "react-redux";
+import CustomEditor from "../Editor/CustomEditor";
+import { CustomToast } from "../CustomToast";
 
 const ForumModal = ({
   isOpen,
@@ -36,8 +39,18 @@ const ForumModal = ({
     userID: "",
   });
 
+  const [tags, setTags] = useState([]);
+  const [content, setContent] = useState("");
+  useEffect(() => {
+    if (tags) {
+      console.log(tags);
+      setThread({ ...Thread, tags: tags });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tags]);
+
   return (
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+    <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="3xl">
       <ModalContent>
         {(onClose) => (
           <>
@@ -55,7 +68,11 @@ const ForumModal = ({
                   setThread({ ...Thread, title: e.target.value })
                 }
               />
-              <SearchSelect />
+              <SearchSelect setTags={setTags} />
+              <Divider />
+              <div className="h-96 w-full bg-white rounded-lg overflow-y-auto mt-4 mb-4">
+                <CustomEditor content={content} setContent={setContent} />
+              </div>
             </ModalBody>
             <ModalFooter>
               <Button color="danger" variant="light" onPress={onClose}>
@@ -65,14 +82,24 @@ const ForumModal = ({
                 color="primary"
                 variant="solid"
                 onPress={() => {
+                  if (Thread.title === "" || content === "") {
+                    CustomToast("Minden mezőt ki kell tölteni!", "error");
+                    return;
+                  }
                   trigger({
                     title: Thread.title,
                     tags: Thread.tags,
                     userID: decoded.sub,
+                    content: content,
                   }).then((res) => {
                     if (res.error) {
+                      CustomToast("Hiba történt a mentés során", "error");
                       console.log(res.error);
                     } else {
+                      CustomToast(
+                        "Sikeresen létrehoztad a fórum posztot",
+                        "success"
+                      );
                       console.log(res.data);
                     }
 
@@ -80,7 +107,7 @@ const ForumModal = ({
                   });
                 }}
               >
-                Action
+                Mentés
               </Button>
             </ModalFooter>
           </>

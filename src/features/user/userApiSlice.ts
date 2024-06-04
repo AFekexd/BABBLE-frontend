@@ -11,13 +11,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
     }),
     getUserViaId: builder.query({
       query: (userId) => ({
-        url: `/user/${userId}`,
+        url: `/users/${userId}`,
         method: "GET",
       }),
     }),
     updateUser: builder.mutation({
       query: (body) => ({
-        url: "/user",
+        url: "/users",
         method: "PUT",
         body,
       }),
@@ -101,7 +101,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
 });
 
 export const {
-  useGetUsersQuery,
+  useLazyGetUsersQuery,
   useGetUserViaIdQuery,
   useUpdateUserMutation,
   useDeleteUserMutation,

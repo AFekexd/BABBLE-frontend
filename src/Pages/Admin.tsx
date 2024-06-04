@@ -4,7 +4,7 @@ import { MdFlag, MdGroup } from "react-icons/md";
 import AdminInfoCard from "../components/Admin/AdminInfoCard";
 import AdminTable from "../components/Admin/AdminTable";
 import { AdminColumns } from "../types/AdminColumns";
-import { useGetUsersQuery } from "../features/user/userApiSlice";
+import { useLazyGetUsersQuery } from "../features/user/userApiSlice";
 const Admin = () => {
   const [activeTab, setActiveTab] = useState("users");
 
@@ -12,13 +12,21 @@ const Admin = () => {
 
   const screenSize = window.innerWidth;
 
-  const { data, error, isLoading, refetch } = useGetUsersQuery({});
+  const [trigger, { data }] = useLazyGetUsersQuery({});
 
   useEffect(() => {
     if (data) {
+      setRows(data);
       console.log(data);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (activeTab === "users") {
+      trigger({});
+    }
+  }, [activeTab]);
+
   const renderContent = () => {
     switch (activeTab) {
       case "users":
@@ -81,7 +89,7 @@ const Admin = () => {
                 startContent={<MdFlag />}
                 isIconOnly={screenSize < 768}
               >
-                {screenSize > 768 && "Manage categories"}
+                {screenSize > 768 && "Manage tags"}
               </Button>
               <Button
                 color={"success"}
@@ -89,12 +97,14 @@ const Admin = () => {
                 onClick={() => setActiveTab("profanity")}
                 startContent={<MdFlag />}
                 isIconOnly={screenSize < 768}
+                isDisabled={true}
               >
                 {screenSize > 768 && "Profinity filter"}
               </Button>
               <Divider />
               <Button
                 color={"danger"}
+                isDisabled={true}
                 variant={activeTab === "reports" ? "solid" : "flat"}
                 onClick={() => setActiveTab("reports")}
                 startContent={<MdFlag />}
@@ -111,7 +121,7 @@ const Admin = () => {
             <div className="flex flex-row gap-1  text-success">
               <MdGroup />
 
-              <p>0/500</p>
+              <p>asd{data && data.length}</p>
             </div>
             <div className="flex flex-row gap-1 text-danger">
               <MdFlag />
